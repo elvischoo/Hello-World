@@ -206,7 +206,9 @@ set ignorecase
 " 当搜索的时候尝试smart  
 set smartcase  
 
-" 设置代码折叠
+""""""""""""""""""""""""""""""
+" 设置代码折叠, 选中一块代码，然后输入zf即可折叠这一段代码
+""""""""""""""""""""""""""""""
 " set foldenable
 " 折叠方法
 " manual 手工折叠
@@ -217,6 +219,15 @@ set smartcase
 " marker 标记折叠
 "set foldmethod=indent
 "set foldlevel=99
+
+"用空格键开关折叠
+set foldenable
+set foldmethod=manual
+nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' :'zo')<CR>
+
+"设定自动保存折叠
+au BufWinLeave *.* silent mkview
+au BufWinEnter *.* silent! loadview
 
 " 设置C/C++方式自动对齐  
 set autoindent  
@@ -323,3 +334,14 @@ autocmd BufReadPost *
 \ exe " normal g`\"" | 
 \ endif 
 endif "has("autocmd")
+
+""""""""""""""""""""""""""""""
+" C/C++的编译与运行
+""""""""""""""""""""""""""""""
+map <F5> :call CompileRunCpp()
+func! CompileRunCpp()
+	exec "w"
+	exec "!g++ -g3 % -o %<"
+	exec "!./%<"
+endfun
+
