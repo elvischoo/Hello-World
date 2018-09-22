@@ -345,3 +345,18 @@ func! CompileRunCpp()
 	exec "!./%<"
 endfun
 
+""""""""""""""""""""""""""""""
+" Doxygen自动添加注释
+" 使用方式：
+" (1) 在函数名的一行按fg键即可自动生成如下的注释
+" (2) 在光标移动到源文件的开始出，然后在命令行下输入 :DoxAutho	
+""""""""""""""""""""""""""""""
+map fg :Dox<CR>
+let g:DoxygenToolkit_briefTag_pre="@Breif: "
+let g:DoxygenToolkit_paramTag_pre="@Param: "
+let g:DoxygenToolkit_returnTag="@Returns: "
+let g:DoxygenToolkit_authorName="xxxxx: "
+let g:DoxygenToolkit_briefTag_funcName="yes"
+let g:Doxygen_enhanced_color=1
+let g:DoxygenToolkit_blockHeader="===================================="
+let g:DoxygenToolkit_blockFooter="===================================="
